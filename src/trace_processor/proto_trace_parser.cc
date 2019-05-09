@@ -54,6 +54,7 @@
 #include "perfetto/trace/ftrace/sched.pbzero.h"
 #include "perfetto/trace/ftrace/signal.pbzero.h"
 #include "perfetto/trace/ftrace/task.pbzero.h"
+#include "perfetto/trace/gpu/gpu_slice.pbzero.h"
 #include "perfetto/trace/interned_data/interned_data.pbzero.h"
 #include "perfetto/trace/power/battery_counters.pbzero.h"
 #include "perfetto/trace/power/power_rails.pbzero.h"
@@ -326,6 +327,10 @@ void ProtoTraceParser::ParseTracePacket(
   if (packet.has_track_event()) {
     ParseTrackEvent(ts, ttp.thread_timestamp, ttp.packet_sequence_state,
                     packet.track_event());
+  }
+
+  if (packet.has_gpu_slice()) {
+    ParseGpuSlice(packet.gpu_slice());
   }
 
   // TODO(lalitm): maybe move this to the flush method in the trace processor
@@ -1554,6 +1559,24 @@ void ProtoTraceParser::ParseTrackEvent(
       break;
     }
   }
+}
+
+void ProtoTraceParser::ParseGpuSlice(ConstBytes blob) {
+   protos::pbzero::GpuSlice::Decoder packet(blob.data, blob.size);
+   auto pid = packet.pid();
+   auto tid = packet.queue_id();
+   auto qid = packet.queue_index();
+
+   uint32_t queue_family_index = (qid >> 16) & 0xFF;
+   uint32_t queue_index = qid & 0xFF;
+   char buff[128];
+   snprintf(buff, 128, "Queue<%d,%d>", queue_family_index, queue_index);
+   StringId name_id = context_->storage->InternString(buff);
+   UniqueTid utid = context_->process_tracker->UpdateThread(tid, pid, name_id);
+
+   StringId label_id = context_->storage->InternString(packet.label());
+   context_->slice_tracker->Begin(packet.start_ts(), utid, 0 /*cat_id*/, label_id);
+   context_->slice_tracker->End(packet.end_ts(), utid, 0 /*cat_id*/, label_id);
 }
 
 }  // namespace trace_processor

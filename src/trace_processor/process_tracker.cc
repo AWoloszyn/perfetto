@@ -113,6 +113,51 @@ UniqueTid ProcessTracker::UpdateThread(uint32_t tid, uint32_t pid) {
   return utid;
 }
 
+UniqueTid ProcessTracker::UpdateThread(uint32_t tid, uint32_t pid,
+                                       StringId thread_name_id) {
+  auto tids_pair = tids_.equal_range(tid);
+
+  // Try looking for a thread that matches both tid and thread group id (pid).
+  TraceStorage::Thread* thread = nullptr;
+  UniqueTid utid = 0;
+  for (auto it = tids_pair.first; it != tids_pair.second; it++) {
+    UniqueTid iter_utid = it->second;
+    auto* iter_thread = context_->storage->GetMutableThread(iter_utid);
+    if (!iter_thread->upid.has_value()) {
+      // We haven't discovered the parent process for the thread. Assign it
+      // now and use this thread.
+      thread = iter_thread;
+      utid = iter_utid;
+      break;
+    }
+    const auto& iter_process =
+        context_->storage->GetProcess(iter_thread->upid.value());
+    if (iter_process.pid == pid) {
+      // We found a thread that matches both the tid and its parent pid.
+      thread = iter_thread;
+      utid = iter_utid;
+      break;
+    }
+  }  // for(tids).
+
+  // If no matching thread was found, create a new one.
+  if (thread == nullptr) {
+    utid = context_->storage->AddEmptyThread(tid);
+    tids_.emplace(tid, utid);
+    thread = context_->storage->GetMutableThread(utid);
+    thread->name_id = thread_name_id;
+  }
+
+  // Find matching process or create new one.
+  if (!thread->upid.has_value()) {
+    thread->upid = GetOrCreateProcess(pid);
+  }
+
+  ResolvePendingAssociations(utid, *thread->upid);
+
+  return utid;
+}
+
 UniquePid ProcessTracker::StartNewProcess(int64_t timestamp, uint32_t pid) {
   pids_.erase(pid);
 

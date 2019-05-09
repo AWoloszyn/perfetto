@@ -66,6 +66,8 @@ class ProcessTracker {
   // Virtual for testing.
   virtual UniqueTid UpdateThread(uint32_t tid, uint32_t tgid);
 
+  UniqueTid UpdateThread(uint32_t tid, uint32_t pid, StringId thread_name_id);
+
   // Called when a task_newtask without the CLONE_THREAD flag is observed.
   // This force the tracker to start both a new UTID and a new UPID.
   UniquePid StartNewProcess(int64_t timestamp, uint32_t pid);

@@ -114,6 +114,7 @@ class ProtoTraceParser : public TraceParser {
                        int64_t tts,
                        ProtoIncrementalState::PacketSequenceState*,
                        ConstBytes);
+  void ParseGpuSlice(ConstBytes);
 
  private:
   TraceProcessorContext* context_;
