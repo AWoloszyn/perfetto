@@ -2,8 +2,8 @@
 // ../../tools/ftrace_proto_gen/ftrace_proto_gen.cc
 // Do not edit.
 
-#include "src/traced/probes/ftrace/event_info.h"
 #include "perfetto/protozero/proto_utils.h"
+#include "src/traced/probes/ftrace/event_info.h"
 
 namespace perfetto {
 
@@ -15,12 +15,235 @@ std::vector<Event> GetStaticEventInfo() {
   {
     events.emplace_back(Event{});
     Event* event = &events.back();
+    event->name = "amdgpu_mm_rreg";
+    event->group = "amdgpu";
+    event->proto_field_id = 331;
+    event->fields.push_back(MakeField("did", 1, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("reg", 2, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("value", 3, ProtoSchemaType::kUint32));
+  }
+
+  {
+    events.emplace_back(Event{});
+    Event* event = &events.back();
+    event->name = "amdgpu_mm_wreg";
+    event->group = "amdgpu";
+    event->proto_field_id = 332;
+    event->fields.push_back(MakeField("did", 1, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("reg", 2, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("value", 3, ProtoSchemaType::kUint32));
+  }
+
+  {
+    events.emplace_back(Event{});
+    Event* event = &events.back();
+    event->name = "amdgpu_iv";
+    event->group = "amdgpu";
+    event->proto_field_id = 333;
+    event->fields.push_back(MakeField("client_id", 1, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("pas_id", 2, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("ring_id", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("src_id", 4, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("timestamp", 5, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("timestamp_src", 6, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("vmid", 7, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("vmid_src", 8, ProtoSchemaType::kUint32));
+  }
+
+  {
+    events.emplace_back(Event{});
+    Event* event = &events.back();
+    event->name = "amdgpu_bo_create";
+    event->group = "amdgpu";
+    event->proto_field_id = 334;
+    event->fields.push_back(MakeField("allow", 1, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("bo", 2, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("pages", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("prefer", 4, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("type", 5, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("visible", 6, ProtoSchemaType::kUint32));
+  }
+
+  {
+    events.emplace_back(Event{});
+    Event* event = &events.back();
+    event->name = "amdgpu_cs";
+    event->group = "amdgpu";
+    event->proto_field_id = 335;
+    event->fields.push_back(MakeField("bo_list", 1, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("dw", 2, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("fences", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("ring", 4, ProtoSchemaType::kUint32));
+  }
+
+  {
+    events.emplace_back(Event{});
+    Event* event = &events.back();
+    event->name = "amdgpu_cs_ioctl";
+    event->group = "amdgpu";
+    event->proto_field_id = 336;
+    event->fields.push_back(MakeField("context", 1, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("dma_fence", 2, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("num_ibs", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("ring_name", 4, ProtoSchemaType::kString));
+    event->fields.push_back(MakeField("sched_job_id", 5, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("seqno", 6, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("timeline", 7, ProtoSchemaType::kString));
+  }
+
+  {
+    events.emplace_back(Event{});
+    Event* event = &events.back();
+    event->name = "amdgpu_sched_run_job";
+    event->group = "amdgpu";
+    event->proto_field_id = 337;
+    event->fields.push_back(MakeField("context", 1, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("num_ibs", 2, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("ring_name", 3, ProtoSchemaType::kString));
+    event->fields.push_back(MakeField("sched_job_id", 4, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("seqno", 5, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("timeline", 6, ProtoSchemaType::kString));
+  }
+
+  {
+    events.emplace_back(Event{});
+    Event* event = &events.back();
+    event->name = "amdgpu_vm_grab_id";
+    event->group = "amdgpu";
+    event->proto_field_id = 338;
+    event->fields.push_back(MakeField("needs_flush", 1, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("pd_addr", 2, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("ring", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("vm", 4, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("vm_hub", 5, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("vmid", 6, ProtoSchemaType::kUint32));
+  }
+
+  {
+    events.emplace_back(Event{});
+    Event* event = &events.back();
+    event->name = "amdgpu_vm_bo_map";
+    event->group = "amdgpu";
+    event->proto_field_id = 339;
+    event->fields.push_back(MakeField("bo", 1, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("flags", 2, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("last", 3, ProtoSchemaType::kInt64));
+    event->fields.push_back(MakeField("offset", 4, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("start", 5, ProtoSchemaType::kInt64));
+  }
+
+  {
+    events.emplace_back(Event{});
+    Event* event = &events.back();
+    event->name = "amdgpu_vm_bo_unmap";
+    event->group = "amdgpu";
+    event->proto_field_id = 340;
+    event->fields.push_back(MakeField("bo", 1, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("flags", 2, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("last", 3, ProtoSchemaType::kInt64));
+    event->fields.push_back(MakeField("offset", 4, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("start", 5, ProtoSchemaType::kInt64));
+  }
+
+  {
+    events.emplace_back(Event{});
+    Event* event = &events.back();
+    event->name = "amdgpu_vm_bo_update";
+    event->group = "amdgpu";
+    event->proto_field_id = 341;
+    event->fields.push_back(MakeField("eoffset", 1, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("flags", 2, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("soffset", 3, ProtoSchemaType::kUint64));
+  }
+
+  {
+    events.emplace_back(Event{});
+    Event* event = &events.back();
+    event->name = "amdgpu_vm_bo_mapping";
+    event->group = "amdgpu";
+    event->proto_field_id = 342;
+    event->fields.push_back(MakeField("eoffset", 1, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("flags", 2, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("soffset", 3, ProtoSchemaType::kUint64));
+  }
+
+  {
+    events.emplace_back(Event{});
+    Event* event = &events.back();
+    event->name = "amdgpu_vm_set_ptes";
+    event->group = "amdgpu";
+    event->proto_field_id = 343;
+    event->fields.push_back(MakeField("addr", 1, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("count", 2, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("flags", 3, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("incr", 4, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("pe", 5, ProtoSchemaType::kUint64));
+  }
+
+  {
+    events.emplace_back(Event{});
+    Event* event = &events.back();
+    event->name = "amdgpu_vm_copy_ptes";
+    event->group = "amdgpu";
+    event->proto_field_id = 344;
+    event->fields.push_back(MakeField("count", 1, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("pe", 2, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("src", 3, ProtoSchemaType::kUint64));
+  }
+
+  {
+    events.emplace_back(Event{});
+    Event* event = &events.back();
+    event->name = "amdgpu_vm_flush";
+    event->group = "amdgpu";
+    event->proto_field_id = 345;
+    event->fields.push_back(MakeField("pd_addr", 1, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("ring", 2, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("vm_hub", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("vmid", 4, ProtoSchemaType::kUint32));
+  }
+
+  {
+    events.emplace_back(Event{});
+    Event* event = &events.back();
+    event->name = "amdgpu_bo_list_set";
+    event->group = "amdgpu";
+    event->proto_field_id = 346;
+    event->fields.push_back(MakeField("bo", 1, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("bo_size", 2, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("list", 3, ProtoSchemaType::kUint64));
+  }
+
+  {
+    events.emplace_back(Event{});
+    Event* event = &events.back();
+    event->name = "amdgpu_cs_bo_status";
+    event->group = "amdgpu";
+    event->proto_field_id = 347;
+    event->fields.push_back(MakeField("total_bo", 1, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("total_size", 2, ProtoSchemaType::kUint64));
+  }
+
+  {
+    events.emplace_back(Event{});
+    Event* event = &events.back();
+    event->name = "amdgpu_ttm_bo_move";
+    event->group = "amdgpu";
+    event->proto_field_id = 348;
+    event->fields.push_back(MakeField("bo", 1, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("bo_size", 2, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("new_placement", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("old_placement", 4, ProtoSchemaType::kUint32));
+  }
+
+  {
+    events.emplace_back(Event{});
+    Event* event = &events.back();
     event->name = "binder_transaction";
     event->group = "binder";
     event->proto_field_id = 50;
     event->fields.push_back(MakeField("debug_id", 1, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("target_node", 2, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("target_node", 2, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("to_proc", 3, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("to_thread", 4, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("reply", 5, ProtoSchemaType::kInt32));
@@ -47,8 +270,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("thread", 2, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("old_prio", 3, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("new_prio", 4, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("desired_prio", 5, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("desired_prio", 5, ProtoSchemaType::kUint32));
   }
 
   {
@@ -84,11 +306,9 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "binder_transaction_alloc_buf";
     event->group = "binder";
     event->proto_field_id = 323;
-    event->fields.push_back(
-        MakeField("data_size", 1, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("data_size", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("debug_id", 2, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("offsets_size", 3, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("offsets_size", 3, ProtoSchemaType::kUint64));
   }
 
   {
@@ -99,8 +319,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 45;
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("sector", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("nr_sector", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("nr_sector", 3, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("bytes", 4, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("rwbs", 5, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("comm", 6, ProtoSchemaType::kString));
@@ -115,8 +334,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 115;
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("sector", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("nr_sector", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("nr_sector", 3, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("rwbs", 4, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("comm", 5, ProtoSchemaType::kString));
   }
@@ -129,8 +347,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 116;
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("sector", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("nr_sector", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("nr_sector", 3, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("rwbs", 4, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("comm", 5, ProtoSchemaType::kString));
   }
@@ -143,8 +360,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 117;
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("sector", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("nr_sector", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("nr_sector", 3, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("error", 4, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("rwbs", 5, ProtoSchemaType::kString));
   }
@@ -157,8 +373,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 118;
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("sector", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("nr_sector", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("nr_sector", 3, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("rwbs", 4, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("comm", 5, ProtoSchemaType::kString));
   }
@@ -171,8 +386,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 119;
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("sector", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("nr_sector", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("nr_sector", 3, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("rwbs", 4, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("comm", 5, ProtoSchemaType::kString));
   }
@@ -185,11 +399,9 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 120;
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("sector", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("nr_sector", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("nr_sector", 3, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("old_dev", 4, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("old_sector", 5, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("old_sector", 5, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("rwbs", 6, ProtoSchemaType::kString));
   }
 
@@ -212,8 +424,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 122;
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("sector", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("nr_sector", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("nr_sector", 3, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("rwbs", 4, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("comm", 5, ProtoSchemaType::kString));
   }
@@ -235,8 +446,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 124;
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("sector", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("nr_sector", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("nr_sector", 3, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("errors", 4, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("rwbs", 5, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("cmd", 6, ProtoSchemaType::kString));
@@ -250,11 +460,11 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 125;
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("sector", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("nr_sector", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("nr_sector", 3, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("errors", 4, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("rwbs", 5, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("cmd", 6, ProtoSchemaType::kString));
+    event->fields.push_back(MakeField("error", 7, ProtoSchemaType::kInt32));
   }
 
   {
@@ -265,8 +475,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 126;
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("sector", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("nr_sector", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("nr_sector", 3, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("bytes", 4, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("rwbs", 5, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("comm", 6, ProtoSchemaType::kString));
@@ -281,11 +490,9 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 128;
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("sector", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("nr_sector", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("nr_sector", 3, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("old_dev", 4, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("old_sector", 5, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("old_sector", 5, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("nr_bios", 6, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("rwbs", 7, ProtoSchemaType::kString));
   }
@@ -298,8 +505,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 129;
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("sector", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("nr_sector", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("nr_sector", 3, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("errors", 4, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("rwbs", 5, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("cmd", 6, ProtoSchemaType::kString));
@@ -313,8 +519,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 130;
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("sector", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("nr_sector", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("nr_sector", 3, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("rwbs", 4, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("comm", 5, ProtoSchemaType::kString));
   }
@@ -327,8 +532,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 131;
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("sector", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("new_sector", 3, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("new_sector", 3, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("rwbs", 4, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("comm", 5, ProtoSchemaType::kString));
   }
@@ -365,6 +569,8 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("pid", 3, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("comm", 4, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("cname", 5, ProtoSchemaType::kString));
+    event->fields.push_back(MakeField("dst_level", 6, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("dst_path", 7, ProtoSchemaType::kString));
   }
 
   {
@@ -376,6 +582,8 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("root", 1, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("id", 2, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("cname", 3, ProtoSchemaType::kString));
+    event->fields.push_back(MakeField("level", 4, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("path", 5, ProtoSchemaType::kString));
   }
 
   {
@@ -398,6 +606,8 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("root", 1, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("id", 2, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("cname", 3, ProtoSchemaType::kString));
+    event->fields.push_back(MakeField("level", 4, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("path", 5, ProtoSchemaType::kString));
   }
 
   {
@@ -411,6 +621,8 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("pid", 3, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("comm", 4, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("cname", 5, ProtoSchemaType::kString));
+    event->fields.push_back(MakeField("dst_level", 6, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("dst_path", 7, ProtoSchemaType::kString));
   }
 
   {
@@ -433,6 +645,8 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("root", 1, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("id", 2, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("cname", 3, ProtoSchemaType::kString));
+    event->fields.push_back(MakeField("level", 4, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("path", 5, ProtoSchemaType::kString));
   }
 
   {
@@ -444,6 +658,8 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("root", 1, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("id", 2, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("cname", 3, ProtoSchemaType::kString));
+    event->fields.push_back(MakeField("level", 4, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("path", 5, ProtoSchemaType::kString));
   }
 
   {
@@ -491,10 +707,8 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "mm_compaction_begin";
     event->group = "compaction";
     event->proto_field_id = 99;
-    event->fields.push_back(
-        MakeField("zone_start", 1, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("migrate_pfn", 2, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("zone_start", 1, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("migrate_pfn", 2, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("free_pfn", 3, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("zone_end", 4, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("sync", 5, ProtoSchemaType::kUint32));
@@ -509,12 +723,9 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("nid", 1, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("idx", 2, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("order", 3, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("considered", 4, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("defer_shift", 5, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("order_failed", 6, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("considered", 4, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("defer_shift", 5, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("order_failed", 6, ProtoSchemaType::kInt32));
   }
 
   {
@@ -526,12 +737,9 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("nid", 1, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("idx", 2, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("order", 3, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("considered", 4, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("defer_shift", 5, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("order_failed", 6, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("considered", 4, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("defer_shift", 5, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("order_failed", 6, ProtoSchemaType::kInt32));
   }
 
   {
@@ -543,12 +751,9 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("nid", 1, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("idx", 2, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("order", 3, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("considered", 4, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("defer_shift", 5, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("order_failed", 6, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("considered", 4, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("defer_shift", 5, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("order_failed", 6, ProtoSchemaType::kInt32));
   }
 
   {
@@ -557,10 +762,8 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "mm_compaction_end";
     event->group = "compaction";
     event->proto_field_id = 103;
-    event->fields.push_back(
-        MakeField("zone_start", 1, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("migrate_pfn", 2, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("zone_start", 1, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("migrate_pfn", 2, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("free_pfn", 3, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("zone_end", 4, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("sync", 5, ProtoSchemaType::kUint32));
@@ -585,11 +788,9 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "mm_compaction_isolate_freepages";
     event->group = "compaction";
     event->proto_field_id = 105;
-    event->fields.push_back(
-        MakeField("start_pfn", 1, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("start_pfn", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("end_pfn", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("nr_scanned", 3, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("nr_scanned", 3, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("nr_taken", 4, ProtoSchemaType::kUint64));
   }
 
@@ -599,11 +800,9 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "mm_compaction_isolate_migratepages";
     event->group = "compaction";
     event->proto_field_id = 106;
-    event->fields.push_back(
-        MakeField("start_pfn", 1, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("start_pfn", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("end_pfn", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("nr_scanned", 3, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("nr_scanned", 3, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("nr_taken", 4, ProtoSchemaType::kUint64));
   }
 
@@ -624,8 +823,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 108;
     event->fields.push_back(MakeField("nid", 1, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("order", 2, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("classzone_idx", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("classzone_idx", 3, ProtoSchemaType::kUint32));
   }
 
   {
@@ -634,10 +832,8 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "mm_compaction_migratepages";
     event->group = "compaction";
     event->proto_field_id = 109;
-    event->fields.push_back(
-        MakeField("nr_migrated", 1, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("nr_failed", 2, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("nr_migrated", 1, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("nr_failed", 2, ProtoSchemaType::kUint64));
   }
 
   {
@@ -661,6 +857,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("order", 1, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("gfp_mask", 2, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("mode", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("prio", 4, ProtoSchemaType::kInt32));
   }
 
   {
@@ -671,8 +868,19 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 112;
     event->fields.push_back(MakeField("nid", 1, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("order", 2, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("classzone_idx", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("classzone_idx", 3, ProtoSchemaType::kUint32));
+  }
+
+  {
+    events.emplace_back(Event{});
+    Event* event = &events.back();
+    event->name = "dma_fence_signaled";
+    event->group = "dma_fence";
+    event->proto_field_id = 349;
+    event->fields.push_back(MakeField("context", 1, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("driver", 2, ProtoSchemaType::kString));
+    event->fields.push_back(MakeField("seqno", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("timeline", 4, ProtoSchemaType::kString));
   }
 
   {
@@ -732,10 +940,8 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 134;
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("ino", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("data_blocks", 3, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("meta_blocks", 4, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("data_blocks", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("meta_blocks", 4, ProtoSchemaType::kUint32));
   }
 
   {
@@ -801,14 +1007,10 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("ino", 2, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("i_blocks", 3, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("freed_blocks", 4, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("reserved_data_blocks", 5, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("reserved_meta_blocks", 6, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("allocated_meta_blocks", 7, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("freed_blocks", 4, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("reserved_data_blocks", 5, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("reserved_meta_blocks", 6, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("allocated_meta_blocks", 7, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("mode", 8, ProtoSchemaType::kUint32));
   }
 
@@ -821,10 +1023,8 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("ino", 2, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("i_blocks", 3, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("reserved_data_blocks", 4, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("reserved_meta_blocks", 5, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("reserved_data_blocks", 4, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("reserved_meta_blocks", 5, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("mode", 6, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("md_needed", 7, ProtoSchemaType::kInt32));
   }
@@ -838,16 +1038,11 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("ino", 2, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("i_blocks", 3, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("used_blocks", 4, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("reserved_data_blocks", 5, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("reserved_meta_blocks", 6, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("allocated_meta_blocks", 7, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("quota_claim", 8, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("used_blocks", 4, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("reserved_data_blocks", 5, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("reserved_meta_blocks", 6, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("allocated_meta_blocks", 7, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("quota_claim", 8, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("mode", 9, ProtoSchemaType::kUint32));
   }
 
@@ -859,18 +1054,14 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 142;
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("ino", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("first_page", 3, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("nr_to_write", 4, ProtoSchemaType::kInt64));
+    event->fields.push_back(MakeField("first_page", 3, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("nr_to_write", 4, ProtoSchemaType::kInt64));
     event->fields.push_back(MakeField("sync_mode", 5, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("b_blocknr", 6, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("b_blocknr", 6, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("b_size", 7, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("b_state", 8, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("io_done", 9, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("pages_written", 10, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("pages_written", 10, ProtoSchemaType::kInt32));
   }
 
   {
@@ -956,7 +1147,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("lblk", 3, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("len", 4, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("pblk", 5, ProtoSchemaType::kUint64));
-    event->fields.push_back(MakeField("status", 6, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("status", 6, ProtoSchemaType::kInt64));
   }
 
   {
@@ -981,7 +1172,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("lblk", 3, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("len", 4, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("pblk", 5, ProtoSchemaType::kUint64));
-    event->fields.push_back(MakeField("status", 6, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("status", 6, ProtoSchemaType::kInt64));
   }
 
   {
@@ -995,7 +1186,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("lblk", 3, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("len", 4, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("pblk", 5, ProtoSchemaType::kUint64));
-    event->fields.push_back(MakeField("status", 6, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("status", 6, ProtoSchemaType::kInt64));
   }
 
   {
@@ -1020,7 +1211,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("lblk", 3, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("len", 4, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("pblk", 5, ProtoSchemaType::kUint64));
-    event->fields.push_back(MakeField("status", 6, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("status", 6, ProtoSchemaType::kInt64));
     event->fields.push_back(MakeField("found", 7, ProtoSchemaType::kInt32));
   }
 
@@ -1044,10 +1235,8 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 156;
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("nr_shrunk", 2, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("scan_time", 3, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("nr_skipped", 4, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("scan_time", 3, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("nr_skipped", 4, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("retried", 5, ProtoSchemaType::kInt32));
   }
 
@@ -1058,8 +1247,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->group = "ext4";
     event->proto_field_id = 157;
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("nr_to_scan", 2, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("nr_to_scan", 2, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("cache_cnt", 3, ProtoSchemaType::kInt32));
   }
 
@@ -1070,8 +1258,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->group = "ext4";
     event->proto_field_id = 158;
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("nr_to_scan", 2, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("nr_to_scan", 2, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("cache_cnt", 3, ProtoSchemaType::kInt32));
   }
 
@@ -1142,8 +1329,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("lblk", 4, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("pblk", 5, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("len", 6, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("allocated", 7, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("allocated", 7, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("newblk", 8, ProtoSchemaType::kUint64));
   }
 
@@ -1238,8 +1424,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("end", 4, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("depth", 5, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("partial", 6, ProtoSchemaType::kInt64));
-    event->fields.push_back(
-        MakeField("eh_entries", 7, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("eh_entries", 7, ProtoSchemaType::kUint32));
   }
 
   {
@@ -1320,8 +1505,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("to", 4, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("reverse", 5, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("found", 6, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("found_blk", 7, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("found_blk", 7, ProtoSchemaType::kUint32));
   }
 
   {
@@ -1333,8 +1517,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("ino", 2, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("block", 3, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("is_metadata", 4, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("is_metadata", 4, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("mode", 5, ProtoSchemaType::kUint32));
   }
 
@@ -1455,8 +1638,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("ip", 2, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("blocks", 3, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("rsv_blocks", 4, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("rsv_blocks", 4, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("nblocks", 5, ProtoSchemaType::kInt32));
   }
 
@@ -1566,10 +1748,8 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 196;
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("ino", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("pa_pstart", 3, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("pa_lstart", 4, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("pa_pstart", 3, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("pa_lstart", 4, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("pa_len", 5, ProtoSchemaType::kUint32));
   }
 
@@ -1581,10 +1761,8 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 197;
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("ino", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("pa_pstart", 3, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("pa_lstart", 4, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("pa_pstart", 3, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("pa_lstart", 4, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("pa_len", 5, ProtoSchemaType::kUint32));
   }
 
@@ -1595,8 +1773,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->group = "ext4";
     event->proto_field_id = 198;
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("pa_pstart", 2, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("pa_pstart", 2, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("pa_len", 3, ProtoSchemaType::kUint32));
   }
 
@@ -1620,28 +1797,18 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 200;
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("ino", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("orig_logical", 3, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("orig_start", 4, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("orig_group", 5, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("orig_logical", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("orig_start", 4, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("orig_group", 5, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("orig_len", 6, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("goal_logical", 7, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("goal_start", 8, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("goal_group", 9, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("goal_logical", 7, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("goal_start", 8, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("goal_group", 9, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("goal_len", 10, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("result_logical", 11, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("result_start", 12, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("result_group", 13, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("result_len", 14, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("result_logical", 11, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("result_start", 12, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("result_group", 13, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("result_len", 14, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("found", 15, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("groups", 16, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("buddy", 17, ProtoSchemaType::kUint32));
@@ -1658,12 +1825,9 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 201;
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("ino", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("result_start", 3, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("result_group", 4, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("result_len", 5, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("result_start", 3, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("result_group", 4, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("result_len", 5, ProtoSchemaType::kInt32));
   }
 
   {
@@ -1674,12 +1838,9 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 202;
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("ino", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("result_start", 3, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("result_group", 4, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("result_len", 5, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("result_start", 3, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("result_group", 4, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("result_len", 5, ProtoSchemaType::kInt32));
   }
 
   {
@@ -1690,21 +1851,14 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 203;
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("ino", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("orig_logical", 3, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("orig_start", 4, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("orig_group", 5, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("orig_logical", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("orig_start", 4, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("orig_group", 5, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("orig_len", 6, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("result_logical", 7, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("result_start", 8, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("result_group", 9, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("result_len", 10, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("result_logical", 7, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("result_start", 8, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("result_group", 9, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("result_len", 10, ProtoSchemaType::kInt32));
   }
 
   {
@@ -1937,20 +2091,14 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 232;
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("ino", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("nr_to_write", 3, ProtoSchemaType::kInt64));
-    event->fields.push_back(
-        MakeField("pages_skipped", 4, ProtoSchemaType::kInt64));
-    event->fields.push_back(
-        MakeField("range_start", 5, ProtoSchemaType::kInt64));
+    event->fields.push_back(MakeField("nr_to_write", 3, ProtoSchemaType::kInt64));
+    event->fields.push_back(MakeField("pages_skipped", 4, ProtoSchemaType::kInt64));
+    event->fields.push_back(MakeField("range_start", 5, ProtoSchemaType::kInt64));
     event->fields.push_back(MakeField("range_end", 6, ProtoSchemaType::kInt64));
-    event->fields.push_back(
-        MakeField("writeback_index", 7, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("writeback_index", 7, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("sync_mode", 8, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("for_kupdate", 9, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("range_cyclic", 10, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("for_kupdate", 9, ProtoSchemaType::kInt64));
+    event->fields.push_back(MakeField("range_cyclic", 10, ProtoSchemaType::kInt64));
   }
 
   {
@@ -1962,12 +2110,9 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("ino", 2, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("ret", 3, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("pages_written", 4, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("pages_skipped", 5, ProtoSchemaType::kInt64));
-    event->fields.push_back(
-        MakeField("writeback_index", 6, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("pages_written", 4, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("pages_skipped", 5, ProtoSchemaType::kInt64));
+    event->fields.push_back(MakeField("writeback_index", 6, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("sync_mode", 7, ProtoSchemaType::kInt32));
   }
 
@@ -2052,13 +2197,11 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("type", 2, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("gc_type", 3, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("alloc_mode", 4, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("alloc_mode", 4, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("gc_mode", 5, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("victim", 6, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("ofs_unit", 7, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("pre_victim", 8, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("pre_victim", 8, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("prefree", 9, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("free", 10, ProtoSchemaType::kUint32));
   }
@@ -2122,8 +2265,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 252;
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("nid", 2, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("ofs_in_node", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("ofs_in_node", 3, ProtoSchemaType::kUint32));
   }
 
   {
@@ -2376,8 +2518,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->group = "f2fs";
     event->proto_field_id = 272;
     event->fields.push_back(MakeField("dev", 1, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("is_umount", 2, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("is_umount", 2, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("msg", 3, ProtoSchemaType::kString));
   }
 
@@ -2484,8 +2625,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "i2c_read";
     event->group = "i2c";
     event->proto_field_id = 27;
-    event->fields.push_back(
-        MakeField("adapter_nr", 1, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("adapter_nr", 1, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("msg_nr", 2, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("addr", 3, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("flags", 4, ProtoSchemaType::kUint32));
@@ -2498,8 +2638,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "i2c_write";
     event->group = "i2c";
     event->proto_field_id = 28;
-    event->fields.push_back(
-        MakeField("adapter_nr", 1, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("adapter_nr", 1, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("msg_nr", 2, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("addr", 3, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("flags", 4, ProtoSchemaType::kUint32));
@@ -2513,8 +2652,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "i2c_result";
     event->group = "i2c";
     event->proto_field_id = 29;
-    event->fields.push_back(
-        MakeField("adapter_nr", 1, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("adapter_nr", 1, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("nr_msgs", 2, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("ret", 3, ProtoSchemaType::kInt32));
   }
@@ -2525,8 +2663,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "i2c_reply";
     event->group = "i2c";
     event->proto_field_id = 30;
-    event->fields.push_back(
-        MakeField("adapter_nr", 1, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("adapter_nr", 1, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("msg_nr", 2, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("addr", 3, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("flags", 4, ProtoSchemaType::kUint32));
@@ -2540,8 +2677,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "smbus_read";
     event->group = "i2c";
     event->proto_field_id = 31;
-    event->fields.push_back(
-        MakeField("adapter_nr", 1, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("adapter_nr", 1, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("flags", 2, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("addr", 3, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("command", 4, ProtoSchemaType::kUint32));
@@ -2554,8 +2690,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "smbus_write";
     event->group = "i2c";
     event->proto_field_id = 32;
-    event->fields.push_back(
-        MakeField("adapter_nr", 1, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("adapter_nr", 1, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("addr", 2, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("flags", 3, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("command", 4, ProtoSchemaType::kUint32));
@@ -2569,12 +2704,10 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "smbus_result";
     event->group = "i2c";
     event->proto_field_id = 33;
-    event->fields.push_back(
-        MakeField("adapter_nr", 1, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("adapter_nr", 1, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("addr", 2, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("flags", 3, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("read_write", 4, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("read_write", 4, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("command", 5, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("res", 6, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("protocol", 7, ProtoSchemaType::kUint32));
@@ -2586,8 +2719,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "smbus_reply";
     event->group = "i2c";
     event->proto_field_id = 34;
-    event->fields.push_back(
-        MakeField("adapter_nr", 1, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("adapter_nr", 1, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("addr", 2, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("flags", 3, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("command", 4, ProtoSchemaType::kUint32));
@@ -2619,8 +2751,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "ipi_raise";
     event->group = "ipi";
     event->proto_field_id = 23;
-    event->fields.push_back(
-        MakeField("target_cpus", 1, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("target_cpus", 1, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("reason", 2, ProtoSchemaType::kString));
   }
 
@@ -2678,8 +2809,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "alloc_pages_iommu_end";
     event->group = "kmem";
     event->proto_field_id = 274;
-    event->fields.push_back(
-        MakeField("gfp_flags", 1, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("gfp_flags", 1, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("order", 2, ProtoSchemaType::kUint32));
   }
 
@@ -2689,8 +2819,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "alloc_pages_iommu_fail";
     event->group = "kmem";
     event->proto_field_id = 275;
-    event->fields.push_back(
-        MakeField("gfp_flags", 1, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("gfp_flags", 1, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("order", 2, ProtoSchemaType::kUint32));
   }
 
@@ -2700,8 +2829,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "alloc_pages_iommu_start";
     event->group = "kmem";
     event->proto_field_id = 276;
-    event->fields.push_back(
-        MakeField("gfp_flags", 1, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("gfp_flags", 1, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("order", 2, ProtoSchemaType::kUint32));
   }
 
@@ -2711,8 +2839,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "alloc_pages_sys_end";
     event->group = "kmem";
     event->proto_field_id = 277;
-    event->fields.push_back(
-        MakeField("gfp_flags", 1, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("gfp_flags", 1, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("order", 2, ProtoSchemaType::kUint32));
   }
 
@@ -2722,8 +2849,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "alloc_pages_sys_fail";
     event->group = "kmem";
     event->proto_field_id = 278;
-    event->fields.push_back(
-        MakeField("gfp_flags", 1, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("gfp_flags", 1, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("order", 2, ProtoSchemaType::kUint32));
   }
 
@@ -2733,8 +2859,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "alloc_pages_sys_start";
     event->group = "kmem";
     event->proto_field_id = 279;
-    event->fields.push_back(
-        MakeField("gfp_flags", 1, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("gfp_flags", 1, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("order", 2, ProtoSchemaType::kUint32));
   }
 
@@ -2753,8 +2878,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "iommu_map_range";
     event->group = "kmem";
     event->proto_field_id = 281;
-    event->fields.push_back(
-        MakeField("chunk_size", 1, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("chunk_size", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("len", 2, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("pa", 3, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("va", 4, ProtoSchemaType::kUint64));
@@ -2792,11 +2916,9 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "ion_alloc_buffer_end";
     event->group = "kmem";
     event->proto_field_id = 284;
-    event->fields.push_back(
-        MakeField("client_name", 1, ProtoSchemaType::kString));
+    event->fields.push_back(MakeField("client_name", 1, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("flags", 2, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("heap_name", 3, ProtoSchemaType::kString));
+    event->fields.push_back(MakeField("heap_name", 3, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("len", 4, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("mask", 5, ProtoSchemaType::kUint32));
   }
@@ -2807,12 +2929,10 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "ion_alloc_buffer_fail";
     event->group = "kmem";
     event->proto_field_id = 285;
-    event->fields.push_back(
-        MakeField("client_name", 1, ProtoSchemaType::kString));
+    event->fields.push_back(MakeField("client_name", 1, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("error", 2, ProtoSchemaType::kInt64));
     event->fields.push_back(MakeField("flags", 3, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("heap_name", 4, ProtoSchemaType::kString));
+    event->fields.push_back(MakeField("heap_name", 4, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("len", 5, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("mask", 6, ProtoSchemaType::kUint32));
   }
@@ -2823,12 +2943,10 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "ion_alloc_buffer_fallback";
     event->group = "kmem";
     event->proto_field_id = 286;
-    event->fields.push_back(
-        MakeField("client_name", 1, ProtoSchemaType::kString));
+    event->fields.push_back(MakeField("client_name", 1, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("error", 2, ProtoSchemaType::kInt64));
     event->fields.push_back(MakeField("flags", 3, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("heap_name", 4, ProtoSchemaType::kString));
+    event->fields.push_back(MakeField("heap_name", 4, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("len", 5, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("mask", 6, ProtoSchemaType::kUint32));
   }
@@ -2839,11 +2957,9 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "ion_alloc_buffer_start";
     event->group = "kmem";
     event->proto_field_id = 287;
-    event->fields.push_back(
-        MakeField("client_name", 1, ProtoSchemaType::kString));
+    event->fields.push_back(MakeField("client_name", 1, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("flags", 2, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("heap_name", 3, ProtoSchemaType::kString));
+    event->fields.push_back(MakeField("heap_name", 3, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("len", 4, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("mask", 5, ProtoSchemaType::kUint32));
   }
@@ -2865,8 +2981,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 289;
     event->fields.push_back(MakeField("align", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("flags", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("heap_name", 3, ProtoSchemaType::kString));
+    event->fields.push_back(MakeField("heap_name", 3, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("len", 4, ProtoSchemaType::kUint64));
   }
 
@@ -2878,8 +2993,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 290;
     event->fields.push_back(MakeField("align", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("flags", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("heap_name", 3, ProtoSchemaType::kString));
+    event->fields.push_back(MakeField("heap_name", 3, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("len", 4, ProtoSchemaType::kUint64));
   }
 
@@ -2898,11 +3012,9 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "ion_secure_cma_add_to_pool_end";
     event->group = "kmem";
     event->proto_field_id = 292;
-    event->fields.push_back(
-        MakeField("is_prefetch", 1, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("is_prefetch", 1, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("len", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("pool_total", 3, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("pool_total", 3, ProtoSchemaType::kInt32));
   }
 
   {
@@ -2911,11 +3023,9 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "ion_secure_cma_add_to_pool_start";
     event->group = "kmem";
     event->proto_field_id = 293;
-    event->fields.push_back(
-        MakeField("is_prefetch", 1, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("is_prefetch", 1, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("len", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("pool_total", 3, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("pool_total", 3, ProtoSchemaType::kInt32));
   }
 
   {
@@ -2926,8 +3036,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 294;
     event->fields.push_back(MakeField("align", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("flags", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("heap_name", 3, ProtoSchemaType::kString));
+    event->fields.push_back(MakeField("heap_name", 3, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("len", 4, ProtoSchemaType::kUint64));
   }
 
@@ -2939,8 +3048,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 295;
     event->fields.push_back(MakeField("align", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("flags", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("heap_name", 3, ProtoSchemaType::kString));
+    event->fields.push_back(MakeField("heap_name", 3, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("len", 4, ProtoSchemaType::kUint64));
   }
 
@@ -2950,10 +3058,8 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "ion_secure_cma_shrink_pool_end";
     event->group = "kmem";
     event->proto_field_id = 296;
-    event->fields.push_back(
-        MakeField("drained_size", 1, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("skipped_size", 2, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("drained_size", 1, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("skipped_size", 2, ProtoSchemaType::kUint64));
   }
 
   {
@@ -2962,10 +3068,8 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "ion_secure_cma_shrink_pool_start";
     event->group = "kmem";
     event->proto_field_id = 297;
-    event->fields.push_back(
-        MakeField("drained_size", 1, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("skipped_size", 2, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("drained_size", 1, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("skipped_size", 2, ProtoSchemaType::kUint64));
   }
 
   {
@@ -2974,8 +3078,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "kfree";
     event->group = "kmem";
     event->proto_field_id = 298;
-    event->fields.push_back(
-        MakeField("call_site", 1, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("call_site", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("ptr", 2, ProtoSchemaType::kUint64));
   }
 
@@ -2985,14 +3088,10 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "kmalloc";
     event->group = "kmem";
     event->proto_field_id = 299;
-    event->fields.push_back(
-        MakeField("bytes_alloc", 1, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("bytes_req", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("call_site", 3, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("gfp_flags", 4, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("bytes_alloc", 1, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("bytes_req", 2, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("call_site", 3, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("gfp_flags", 4, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("ptr", 5, ProtoSchemaType::kUint64));
   }
 
@@ -3002,14 +3101,10 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "kmalloc_node";
     event->group = "kmem";
     event->proto_field_id = 300;
-    event->fields.push_back(
-        MakeField("bytes_alloc", 1, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("bytes_req", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("call_site", 3, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("gfp_flags", 4, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("bytes_alloc", 1, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("bytes_req", 2, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("call_site", 3, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("gfp_flags", 4, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("node", 5, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("ptr", 6, ProtoSchemaType::kUint64));
   }
@@ -3020,14 +3115,10 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "kmem_cache_alloc";
     event->group = "kmem";
     event->proto_field_id = 301;
-    event->fields.push_back(
-        MakeField("bytes_alloc", 1, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("bytes_req", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("call_site", 3, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("gfp_flags", 4, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("bytes_alloc", 1, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("bytes_req", 2, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("call_site", 3, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("gfp_flags", 4, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("ptr", 5, ProtoSchemaType::kUint64));
   }
 
@@ -3037,14 +3128,10 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "kmem_cache_alloc_node";
     event->group = "kmem";
     event->proto_field_id = 302;
-    event->fields.push_back(
-        MakeField("bytes_alloc", 1, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("bytes_req", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("call_site", 3, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("gfp_flags", 4, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("bytes_alloc", 1, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("bytes_req", 2, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("call_site", 3, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("gfp_flags", 4, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("node", 5, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("ptr", 6, ProtoSchemaType::kUint64));
   }
@@ -3055,8 +3142,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "kmem_cache_free";
     event->group = "kmem";
     event->proto_field_id = 303;
-    event->fields.push_back(
-        MakeField("call_site", 1, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("call_site", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("ptr", 2, ProtoSchemaType::kUint64));
   }
 
@@ -3093,10 +3179,8 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "mm_page_alloc";
     event->group = "kmem";
     event->proto_field_id = 307;
-    event->fields.push_back(
-        MakeField("gfp_flags", 1, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("migratetype", 2, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("gfp_flags", 1, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("migratetype", 2, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("order", 3, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("page", 4, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("pfn", 5, ProtoSchemaType::kUint64));
@@ -3108,17 +3192,12 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "mm_page_alloc_extfrag";
     event->group = "kmem";
     event->proto_field_id = 308;
-    event->fields.push_back(
-        MakeField("alloc_migratetype", 1, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("alloc_order", 2, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("fallback_migratetype", 3, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("fallback_order", 4, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("alloc_migratetype", 1, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("alloc_order", 2, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("fallback_migratetype", 3, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("fallback_order", 4, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("page", 5, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("change_ownership", 6, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("change_ownership", 6, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("pfn", 7, ProtoSchemaType::kUint64));
   }
 
@@ -3128,8 +3207,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "mm_page_alloc_zone_locked";
     event->group = "kmem";
     event->proto_field_id = 309;
-    event->fields.push_back(
-        MakeField("migratetype", 1, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("migratetype", 1, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("order", 2, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("page", 3, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("pfn", 4, ProtoSchemaType::kUint64));
@@ -3163,8 +3241,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "mm_page_pcpu_drain";
     event->group = "kmem";
     event->proto_field_id = 312;
-    event->fields.push_back(
-        MakeField("migratetype", 1, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("migratetype", 1, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("order", 2, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("page", 3, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("pfn", 4, ProtoSchemaType::kUint64));
@@ -3186,11 +3263,9 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "ion_heap_shrink";
     event->group = "kmem";
     event->proto_field_id = 314;
-    event->fields.push_back(
-        MakeField("heap_name", 1, ProtoSchemaType::kString));
+    event->fields.push_back(MakeField("heap_name", 1, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("len", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("total_allocated", 3, ProtoSchemaType::kInt64));
+    event->fields.push_back(MakeField("total_allocated", 3, ProtoSchemaType::kInt64));
   }
 
   {
@@ -3199,11 +3274,9 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "ion_heap_grow";
     event->group = "kmem";
     event->proto_field_id = 315;
-    event->fields.push_back(
-        MakeField("heap_name", 1, ProtoSchemaType::kString));
+    event->fields.push_back(MakeField("heap_name", 1, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("len", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("total_allocated", 3, ProtoSchemaType::kInt64));
+    event->fields.push_back(MakeField("total_allocated", 3, ProtoSchemaType::kInt64));
   }
 
   {
@@ -3214,10 +3287,8 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 35;
     event->fields.push_back(MakeField("comm", 1, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("pid", 2, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("pagecache_size", 3, ProtoSchemaType::kInt64));
-    event->fields.push_back(
-        MakeField("pagecache_limit", 4, ProtoSchemaType::kInt64));
+    event->fields.push_back(MakeField("pagecache_size", 3, ProtoSchemaType::kInt64));
+    event->fields.push_back(MakeField("pagecache_limit", 4, ProtoSchemaType::kInt64));
     event->fields.push_back(MakeField("free", 5, ProtoSchemaType::kInt64));
   }
 
@@ -3228,8 +3299,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->group = "mdss";
     event->proto_field_id = 76;
     event->fields.push_back(MakeField("ctl_num", 1, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("kickoff_cnt", 2, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("kickoff_cnt", 2, ProtoSchemaType::kInt32));
   }
 
   {
@@ -3241,8 +3311,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("num", 1, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("play_cnt", 2, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("clk_rate", 3, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("bandwidth", 4, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("bandwidth", 4, ProtoSchemaType::kUint64));
   }
 
   {
@@ -3254,8 +3323,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("pnum", 1, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("xin_id", 2, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("rd_lim", 3, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("is_vbif_rt", 4, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("is_vbif_rt", 4, ProtoSchemaType::kUint32));
   }
 
   {
@@ -3289,10 +3357,8 @@ std::vector<Event> GetStaticEventInfo() {
     event->group = "mdss";
     event->proto_field_id = 80;
     event->fields.push_back(MakeField("pid", 1, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("trace_name", 2, ProtoSchemaType::kString));
-    event->fields.push_back(
-        MakeField("trace_begin", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("trace_name", 2, ProtoSchemaType::kString));
+    event->fields.push_back(MakeField("trace_begin", 3, ProtoSchemaType::kUint32));
   }
 
   {
@@ -3319,10 +3385,8 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("old_ab", 4, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("old_ib", 5, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("old_wb", 6, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("params_changed", 7, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("update_bw", 8, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("params_changed", 7, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("update_bw", 8, ProtoSchemaType::kUint32));
   }
 
   {
@@ -3334,10 +3398,8 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("pnum", 1, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("fmt", 2, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("mode", 3, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("panic_lut", 4, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("robust_lut", 5, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("panic_lut", 4, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("robust_lut", 5, ProtoSchemaType::kUint32));
   }
 
   {
@@ -3381,8 +3443,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->group = "mdss";
     event->proto_field_id = 86;
     event->fields.push_back(MakeField("block_id", 1, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("vsync_cnt", 2, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("vsync_cnt", 2, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("crc", 3, ProtoSchemaType::kUint32));
   }
 
@@ -3408,8 +3469,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->group = "mdss";
     event->proto_field_id = 88;
     event->fields.push_back(MakeField("pid", 1, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("counter_name", 2, ProtoSchemaType::kString));
+    event->fields.push_back(MakeField("counter_name", 2, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("value", 3, ProtoSchemaType::kInt32));
   }
 
@@ -3428,8 +3488,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "mdp_mixer_update";
     event->group = "mdss";
     event->proto_field_id = 90;
-    event->fields.push_back(
-        MakeField("mixer_num", 1, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("mixer_num", 1, ProtoSchemaType::kUint32));
   }
 
   {
@@ -3439,10 +3498,8 @@ std::vector<Event> GetStaticEventInfo() {
     event->group = "mdss";
     event->proto_field_id = 91;
     event->fields.push_back(MakeField("pnum", 1, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("use_space", 2, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("priority_bytes", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("use_space", 2, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("priority_bytes", 3, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("wm0", 4, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("wm1", 5, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("wm2", 6, ProtoSchemaType::kUint32));
@@ -3457,8 +3514,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->group = "mdss";
     event->proto_field_id = 92;
     event->fields.push_back(MakeField("ctl_num", 1, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("underrun_cnt", 2, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("underrun_cnt", 2, ProtoSchemaType::kUint32));
   }
 
   {
@@ -3468,8 +3524,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->group = "mdss";
     event->proto_field_id = 93;
     event->fields.push_back(MakeField("ctl_num", 1, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("kickoff_cnt", 2, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("kickoff_cnt", 2, ProtoSchemaType::kInt32));
   }
 
   {
@@ -3479,18 +3534,15 @@ std::vector<Event> GetStaticEventInfo() {
     event->group = "mdss";
     event->proto_field_id = 94;
     event->fields.push_back(MakeField("pnum", 1, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("latency_buf", 2, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("latency_buf", 2, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("ot", 3, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("y_buf", 4, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("y_scaler", 5, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("pp_lines", 6, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("pp_bytes", 7, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("post_sc", 8, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("fbc_bytes", 9, ProtoSchemaType::kUint32));
-    event->fields.push_back(
-        MakeField("prefill_bytes", 10, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("fbc_bytes", 9, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("prefill_bytes", 10, ProtoSchemaType::kUint32));
   }
 
   {
@@ -3532,8 +3584,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->group = "oom";
     event->proto_field_id = 326;
     event->fields.push_back(MakeField("comm", 1, ProtoSchemaType::kString));
-    event->fields.push_back(
-        MakeField("oom_score_adj", 2, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("oom_score_adj", 2, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("pid", 3, ProtoSchemaType::kInt32));
   }
 
@@ -3703,14 +3754,11 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "sched_switch";
     event->group = "sched";
     event->proto_field_id = 4;
-    event->fields.push_back(
-        MakeField("prev_comm", 1, ProtoSchemaType::kString));
+    event->fields.push_back(MakeField("prev_comm", 1, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("prev_pid", 2, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("prev_prio", 3, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("prev_state", 4, ProtoSchemaType::kInt64));
-    event->fields.push_back(
-        MakeField("next_comm", 5, ProtoSchemaType::kString));
+    event->fields.push_back(MakeField("prev_state", 4, ProtoSchemaType::kInt64));
+    event->fields.push_back(MakeField("next_comm", 5, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("next_pid", 6, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("next_prio", 7, ProtoSchemaType::kInt32));
   }
@@ -3725,8 +3773,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("pid", 2, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("prio", 3, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("success", 4, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("target_cpu", 5, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("target_cpu", 5, ProtoSchemaType::kInt32));
   }
 
   {
@@ -3746,8 +3793,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "sched_cpu_hotplug";
     event->group = "sched";
     event->proto_field_id = 19;
-    event->fields.push_back(
-        MakeField("affected_cpu", 1, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("affected_cpu", 1, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("error", 2, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("status", 3, ProtoSchemaType::kInt32));
   }
@@ -3762,8 +3808,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("pid", 2, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("prio", 3, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("success", 4, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("target_cpu", 5, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("target_cpu", 5, ProtoSchemaType::kInt32));
   }
 
   {
@@ -3776,8 +3821,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("pid", 2, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("prio", 3, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("success", 4, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("target_cpu", 5, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("target_cpu", 5, ProtoSchemaType::kInt32));
   }
 
   {
@@ -3809,12 +3853,9 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "sched_process_fork";
     event->group = "sched";
     event->proto_field_id = 239;
-    event->fields.push_back(
-        MakeField("parent_comm", 1, ProtoSchemaType::kString));
-    event->fields.push_back(
-        MakeField("parent_pid", 2, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("child_comm", 3, ProtoSchemaType::kString));
+    event->fields.push_back(MakeField("parent_comm", 1, ProtoSchemaType::kString));
+    event->fields.push_back(MakeField("parent_pid", 2, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("child_comm", 3, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("child_pid", 4, ProtoSchemaType::kInt32));
   }
 
@@ -3914,10 +3955,8 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 235;
     event->fields.push_back(MakeField("pid", 1, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("comm", 2, ProtoSchemaType::kString));
-    event->fields.push_back(
-        MakeField("clone_flags", 3, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("oom_score_adj", 4, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("clone_flags", 3, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("oom_score_adj", 4, ProtoSchemaType::kInt32));
   }
 
   {
@@ -3929,8 +3968,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->fields.push_back(MakeField("pid", 1, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("oldcomm", 2, ProtoSchemaType::kString));
     event->fields.push_back(MakeField("newcomm", 3, ProtoSchemaType::kString));
-    event->fields.push_back(
-        MakeField("oom_score_adj", 4, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("oom_score_adj", 4, ProtoSchemaType::kInt32));
   }
 
   {
@@ -3940,10 +3978,9 @@ std::vector<Event> GetStaticEventInfo() {
     event->group = "vmscan";
     event->proto_field_id = 46;
     event->fields.push_back(MakeField("order", 1, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("may_writepage", 2, ProtoSchemaType::kInt32));
-    event->fields.push_back(
-        MakeField("gfp_flags", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("may_writepage", 2, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("gfp_flags", 3, ProtoSchemaType::kUint32));
+    event->fields.push_back(MakeField("classzone_idx", 4, ProtoSchemaType::kInt32));
   }
 
   {
@@ -3952,8 +3989,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->name = "mm_vmscan_direct_reclaim_end";
     event->group = "vmscan";
     event->proto_field_id = 47;
-    event->fields.push_back(
-        MakeField("nr_reclaimed", 1, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("nr_reclaimed", 1, ProtoSchemaType::kUint64));
   }
 
   {
@@ -3964,6 +4000,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 48;
     event->fields.push_back(MakeField("nid", 1, ProtoSchemaType::kInt32));
     event->fields.push_back(MakeField("order", 2, ProtoSchemaType::kInt32));
+    event->fields.push_back(MakeField("zid", 3, ProtoSchemaType::kInt32));
   }
 
   {
@@ -4011,8 +4048,7 @@ std::vector<Event> GetStaticEventInfo() {
     event->proto_field_id = 59;
     event->fields.push_back(MakeField("work", 1, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("function", 2, ProtoSchemaType::kUint64));
-    event->fields.push_back(
-        MakeField("workqueue", 3, ProtoSchemaType::kUint64));
+    event->fields.push_back(MakeField("workqueue", 3, ProtoSchemaType::kUint64));
     event->fields.push_back(MakeField("req_cpu", 4, ProtoSchemaType::kUint32));
     event->fields.push_back(MakeField("cpu", 5, ProtoSchemaType::kUint32));
   }

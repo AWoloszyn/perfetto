@@ -87,6 +87,9 @@ class ProtoTraceParser : public TraceParser {
                                 bool grow);
   void ParseSignalDeliver(int64_t ts, uint32_t pid, ConstBytes);
   void ParseSignalGenerate(int64_t ts, ConstBytes);
+  void ParseAmdgpuCsIoctl(int64_t ts, uint32_t pid, ConstBytes);
+  void ParseAmdgpuSchedRunJob(int64_t ts, uint32_t pid, ConstBytes);
+  void ParseDmaFenceSignaled(int64_t ts, ConstBytes);
   void ParseLowmemoryKill(int64_t ts, ConstBytes);
   void ParseBatteryCounters(int64_t ts, ConstBytes);
   void ParsePowerRails(ConstBytes);
@@ -145,10 +148,17 @@ class ProtoTraceParser : public TraceParser {
   const StringId oom_score_adj_id_;
   const StringId ion_total_unknown_id_;
   const StringId ion_change_unknown_id_;
+  const StringId kernel_queue_id_;
+  const StringId hardware_queue_id_;
   std::vector<StringId> meminfo_strs_id_;
   std::vector<StringId> vmstat_strs_id_;
   std::vector<StringId> rss_members_;
   std::vector<StringId> power_rails_strs_id_;
+  std::unordered_map<std::string, size_t> ringNames;
+  std::unordered_map<size_t, uint32_t> ringDepth;
+  std::unordered_map<size_t, uint32_t> hwQueueDepth;
+  std::unordered_map<size_t, size_t> outStandingSeq;
+
 
   struct FtraceMessageStrings {
     // The string id of name of the event field (e.g. sched_switch's id).

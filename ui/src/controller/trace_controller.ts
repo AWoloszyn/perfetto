@@ -307,15 +307,16 @@ export class TraceController extends Controller<States> {
     for (let i = 0; i < counters.numRecords; i++) {
       const name = counters.columns[0].stringValues![i];
       const refType = counters.columns[2].stringValues![i];
-      if (refType !== '[NULL]') continue;
+      const ref = counters.columns[1].longValues![i]
+      if (refType !== '[NULL]' && refType !== 'irq') continue;
       addToTrackActions.push(Actions.addTrack({
         engineId: this.engineId,
         kind: 'CounterTrack',
-        name,
+        name: `${name}-${ref}`,
         trackGroup: SCROLLING_TRACK_GROUP,
         config: {
           name,
-          ref: 0,
+          ref: ref,
         }
       }));
     }

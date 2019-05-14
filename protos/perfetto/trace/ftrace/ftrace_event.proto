@@ -5,11 +5,13 @@
 syntax = "proto2";
 option optimize_for = LITE_RUNTIME;
 
+import "perfetto/trace/ftrace/amdgpu.proto";
 import "perfetto/trace/ftrace/binder.proto";
 import "perfetto/trace/ftrace/block.proto";
 import "perfetto/trace/ftrace/cgroup.proto";
 import "perfetto/trace/ftrace/clk.proto";
 import "perfetto/trace/ftrace/compaction.proto";
+import "perfetto/trace/ftrace/dma_fence.proto";
 import "perfetto/trace/ftrace/ext4.proto";
 import "perfetto/trace/ftrace/f2fs.proto";
 import "perfetto/trace/ftrace/fence.proto";
@@ -392,5 +394,24 @@ message FtraceEvent {
     MmEventRecordFtraceEvent mm_event_record = 328;
     SysEnterFtraceEvent sys_enter = 329;
     SysExitFtraceEvent sys_exit = 330;
+    AmdgpuMmRregFtraceEvent amdgpu_mm_rreg = 331;
+    AmdgpuMmWregFtraceEvent amdgpu_mm_wreg = 332;
+    AmdgpuIvFtraceEvent amdgpu_iv = 333;
+    AmdgpuBoCreateFtraceEvent amdgpu_bo_create = 334;
+    AmdgpuCsFtraceEvent amdgpu_cs = 335;
+    AmdgpuCsIoctlFtraceEvent amdgpu_cs_ioctl = 336;
+    AmdgpuSchedRunJobFtraceEvent amdgpu_sched_run_job = 337;
+    AmdgpuVmGrabIdFtraceEvent amdgpu_vm_grab_id = 338;
+    AmdgpuVmBoMapFtraceEvent amdgpu_vm_bo_map = 339;
+    AmdgpuVmBoUnmapFtraceEvent amdgpu_vm_bo_unmap = 340;
+    AmdgpuVmBoUpdateFtraceEvent amdgpu_vm_bo_update = 341;
+    AmdgpuVmBoMappingFtraceEvent amdgpu_vm_bo_mapping = 342;
+    AmdgpuVmSetPtesFtraceEvent amdgpu_vm_set_ptes = 343;
+    AmdgpuVmCopyPtesFtraceEvent amdgpu_vm_copy_ptes = 344;
+    AmdgpuVmFlushFtraceEvent amdgpu_vm_flush = 345;
+    AmdgpuBoListSetFtraceEvent amdgpu_bo_list_set = 346;
+    AmdgpuCsBoStatusFtraceEvent amdgpu_cs_bo_status = 347;
+    AmdgpuTtmBoMoveFtraceEvent amdgpu_ttm_bo_move = 348;
+    DmaFenceSignaledFtraceEvent dma_fence_signaled = 349;
   }
 }

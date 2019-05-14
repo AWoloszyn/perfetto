@@ -41,6 +41,8 @@
 #include "perfetto/common/trace_stats.pbzero.h"
 #include "perfetto/trace/android/android_log.pbzero.h"
 #include "perfetto/trace/clock_snapshot.pbzero.h"
+#include "perfetto/trace/ftrace/amdgpu.pbzero.h"
+#include "perfetto/trace/ftrace/dma_fence.pbzero.h"
 #include "perfetto/trace/ftrace/ftrace.pbzero.h"
 #include "perfetto/trace/ftrace/ftrace_event.pbzero.h"
 #include "perfetto/trace/ftrace/ftrace_stats.pbzero.h"
@@ -193,7 +195,9 @@ ProtoTraceParser::ProtoTraceParser(TraceProcessorContext* context)
       oom_score_adj_id_(context->storage->InternString("oom_score_adj")),
       ion_total_unknown_id_(context->storage->InternString("mem.ion.unknown")),
       ion_change_unknown_id_(
-          context->storage->InternString("mem.ion_change.unknown")) {
+          context->storage->InternString("mem.ion_change.unknown")),
+      kernel_queue_id_(context->storage->InternString("kernel_queue")),
+      hardware_queue_id_(context->storage->InternString("hardware_queue")) {
   for (const auto& name : BuildMeminfoCounterNames()) {
     meminfo_strs_id_.emplace_back(context->storage->InternString(name));
   }
@@ -600,6 +604,18 @@ void ProtoTraceParser::ParseFtracePacket(
         ParseTaskRename(data);
         break;
       }
+      case protos::pbzero::FtraceEvent::kAmdgpuCsIoctlFieldNumber: {
+        ParseAmdgpuCsIoctl(ts, pid, data);
+        break;
+      }
+      case protos::pbzero::FtraceEvent::kAmdgpuSchedRunJobFieldNumber: {
+        ParseAmdgpuSchedRunJob(ts, pid, data);
+        break;
+      }
+      case protos::pbzero::FtraceEvent::kDmaFenceSignaledFieldNumber: {
+        ParseDmaFenceSignaled(ts, data);
+        break;
+      }
       default:
         break;
     }
@@ -630,6 +646,93 @@ void ProtoTraceParser::ParseSignalGenerate(int64_t ts, ConstBytes blob) {
       static_cast<uint32_t>(sig.pid()));
   context_->event_tracker->PushInstant(ts, signal_generate_id_, sig.sig(), utid,
                                        RefType::kRefUtid);
+}
+
+// This event has both the pid of the thread that sent the signal and the
+// destination of the signal. Currently storing the pid of the destination.
+void ProtoTraceParser::ParseAmdgpuCsIoctl(int64_t ts,
+                                          uint32_t pid,
+                                          ConstBytes blob) {
+  protos::pbzero::AmdgpuCsIoctlFtraceEvent::Decoder evt(blob.data, blob.size);
+  (void)pid;
+  auto name = std::string(evt.ring_name().data, evt.ring_name().size);
+  uint32_t nPendingJobs = 0;
+  size_t ringIdx = 0;
+  if (ringNames.count(name) == 0) {
+    ringIdx = ringNames.size();
+    ringNames[name] = ringIdx;
+    nPendingJobs = 0;
+    hwQueueDepth[ringIdx] = 0;
+  } else {
+    ringIdx = ringNames[name];
+    nPendingJobs = ringDepth[ringIdx];
+  }
+  ++nPendingJobs;
+
+  context_->event_tracker->PushCounter(ts, nPendingJobs,
+                                        kernel_queue_id_, static_cast<int64_t>(ringIdx),
+                                        RefType::kRefIrq);
+  ringDepth[ringIdx] = nPendingJobs;
+}
+
+// This event has both the pid of the thread that sent the signal and the
+// destination of the signal. Currently storing the pid of the destination.
+void ProtoTraceParser::ParseAmdgpuSchedRunJob(int64_t ts,
+                                          uint32_t pid,
+                                          ConstBytes blob) {
+  protos::pbzero::AmdgpuSchedRunJobFtraceEvent::Decoder evt(blob.data, blob.size);
+  auto name = std::string(evt.ring_name().data, evt.ring_name().size);
+(void)pid;
+  uint32_t nPendingJobs = 0;
+  uint32_t nHWQueueSize = 0;
+  size_t ringIdx = 0;
+  if (ringNames.count(name) == 0) {
+    ringIdx = ringNames.size();
+    ringNames[name] = ringIdx;
+    nPendingJobs = 0;
+    hwQueueDepth[ringIdx] = 0;
+  } else {
+    ringIdx = ringNames[name];
+    nPendingJobs = ringDepth[ringIdx];
+    nHWQueueSize = hwQueueDepth[ringIdx];
+  }
+
+  if (nPendingJobs > 0) {
+    --nPendingJobs;  
+  }
+  ++nHWQueueSize;
+  context_->event_tracker->PushCounter(ts, nPendingJobs,
+              kernel_queue_id_, static_cast<int64_t>(ringIdx),
+              RefType::kRefIrq);
+
+  context_->event_tracker->PushCounter(ts, nHWQueueSize,
+              hardware_queue_id_, static_cast<int64_t>(ringIdx),
+              RefType::kRefIrq);
+
+  outStandingSeq[evt.seqno()] = ringIdx;
+
+  ringDepth[ringIdx] = nPendingJobs;
+  hwQueueDepth[ringIdx] = nHWQueueSize;
+}
+
+void ProtoTraceParser::ParseDmaFenceSignaled(int64_t ts, ConstBytes blob) {
+   protos::pbzero::DmaFenceSignaledFtraceEvent::Decoder evt(blob.data, blob.size);
+  if (outStandingSeq.count(evt.seqno()) == 0) {
+    return;
+  }
+
+  size_t ringIdx =outStandingSeq[evt.seqno()];
+  outStandingSeq.erase(evt.seqno());
+  uint32_t nHWQueueSize = hwQueueDepth[ringIdx];
+
+  if (nHWQueueSize > 0) {
+    --nHWQueueSize;  
+  }
+  context_->event_tracker->PushCounter(ts, nHWQueueSize,
+              hardware_queue_id_, static_cast<int64_t>(ringIdx),
+              RefType::kRefIrq);
+
+  hwQueueDepth[ringIdx] = nHWQueueSize;
 }
 
 void ProtoTraceParser::ParseLowmemoryKill(int64_t ts, ConstBytes blob) {
@@ -1563,8 +1666,8 @@ void ProtoTraceParser::ParseTrackEvent(
 
 void ProtoTraceParser::ParseGpuSlice(ConstBytes blob) {
    protos::pbzero::GpuSlice::Decoder packet(blob.data, blob.size);
-   auto pid = packet.pid();
-   auto tid = packet.queue_id();
+   auto pid = static_cast<uint32_t>(packet.pid());
+   auto tid = static_cast<uint32_t>(packet.queue_id());
    auto qid = packet.queue_index();
 
    uint32_t queue_family_index = (qid >> 16) & 0xFF;
@@ -1575,8 +1678,8 @@ void ProtoTraceParser::ParseGpuSlice(ConstBytes blob) {
    UniqueTid utid = context_->process_tracker->UpdateThread(tid, pid, name_id);
 
    StringId label_id = context_->storage->InternString(packet.label());
-   context_->slice_tracker->Begin(packet.start_ts(), utid, 0 /*cat_id*/, label_id);
-   context_->slice_tracker->End(packet.end_ts(), utid, 0 /*cat_id*/, label_id);
+   context_->slice_tracker->Begin(static_cast<int64_t>(packet.start_ts()), utid, 0 /*cat_id*/, label_id);
+   context_->slice_tracker->End(static_cast<int64_t>(packet.end_ts()), utid, 0 /*cat_id*/, label_id);
 }
 
 }  // namespace trace_processor
