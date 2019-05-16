@@ -56,6 +56,7 @@
 #include "perfetto/trace/ftrace/sched.pbzero.h"
 #include "perfetto/trace/ftrace/signal.pbzero.h"
 #include "perfetto/trace/ftrace/task.pbzero.h"
+#include "perfetto/trace/gpu/cpu_slice.pbzero.h"
 #include "perfetto/trace/gpu/gpu_slice.pbzero.h"
 #include "perfetto/trace/interned_data/interned_data.pbzero.h"
 #include "perfetto/trace/power/battery_counters.pbzero.h"
@@ -335,6 +336,9 @@ void ProtoTraceParser::ParseTracePacket(
 
   if (packet.has_gpu_slice()) {
     ParseGpuSlice(packet.gpu_slice());
+  }
+  if (packet.has_cpu_slice()) {
+    ParseCpuSlice(packet.cpu_slice());
   }
 
   // TODO(lalitm): maybe move this to the flush method in the trace processor
@@ -1676,6 +1680,17 @@ void ProtoTraceParser::ParseGpuSlice(ConstBytes blob) {
    snprintf(buff, 128, "Queue<%d,%d>", queue_family_index, queue_index);
    StringId name_id = context_->storage->InternString(buff);
    UniqueTid utid = context_->process_tracker->UpdateThread(tid, pid, name_id);
+
+   StringId label_id = context_->storage->InternString(packet.label());
+   context_->slice_tracker->Begin(static_cast<int64_t>(packet.start_ts()), utid, 0 /*cat_id*/, label_id);
+   context_->slice_tracker->End(static_cast<int64_t>(packet.end_ts()), utid, 0 /*cat_id*/, label_id);
+}
+
+void ProtoTraceParser::ParseCpuSlice(ConstBytes blob) {
+   protos::pbzero::CpuSlice::Decoder packet(blob.data, blob.size);
+   auto pid = static_cast<uint32_t>(packet.pid());
+   auto tid = static_cast<uint32_t>(packet.tid());
+   UniqueTid utid = context_->process_tracker->UpdateThread(tid, pid);
 
    StringId label_id = context_->storage->InternString(packet.label());
    context_->slice_tracker->Begin(static_cast<int64_t>(packet.start_ts()), utid, 0 /*cat_id*/, label_id);
